@@ -1,0 +1,29 @@
+.app-download {
+    /* Light background color */
+    padding: 20px; /* Padding around the component */
+    text-align: center; /* Center align text */
+    border-radius: 8px; /* Rounded corners */
+   
+}
+
+.app-download h2 {
+    margin-bottom: 15px; /* Space below the heading */
+    color: #333; /* Dark text color */
+    font-size: 30px;
+}
+
+.app-download p {
+    margin-bottom: 20px; /* Space below the paragraph */
+    color: #666; /* Lighter text color */
+    font-size: 30px;
+}
+
+.app-download img {
+    max-width: 200px; /* Limit image size */
+    max-height: 100px;
+    margin: 0 10px; /* Space between images */
+    cursor: pointer;
+}
+.app-download-platforms img:hover {
+    transform: scale(1.05);
+}

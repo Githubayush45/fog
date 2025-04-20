@@ -1,0 +1,113 @@
+.login-popup {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: #00000090;
+    display: grid;
+}
+
+.login-popup-container {
+    place-self: center;
+    width: max(23vw, 330px);
+    color: #808080;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 25px 30px;
+    border-radius: 8px;
+    font-size: 14px;
+    animation: fadeIn 0.5;
+}
+
+
+.login-popup h2 {
+    margin-bottom: 15px; /* Space below the heading */
+    color: #333; /* Dark text color */
+}
+
+.login-popup input {
+    width: 100%; /* Full width for inputs */
+    padding: 10px; /* Padding inside inputs */
+    margin-bottom: 15px; /* Space below inputs */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners for inputs */
+}
+.login-popup-title img{
+    cursor: pointer;
+}
+
+.login-popup button {
+    background-color: tomato; /* Primary button color */
+    color: white; /* Text color */
+    padding: 10px; /* Padding inside button */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.login-popup button:hover {
+    background-color: tomato; /* Darker shade on hover */
+}
+
+/* Media Queries */
+@media (max-width: 750px) {
+    .login-popup {
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    .login-popup h2 {
+        font-size: 18px; /* Smaller font size for heading */
+    }
+}
+.login-popup-condition {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: -15px;
+}
+
+.login-popup-condition input {
+    margin-top: 5px;
+}
+
+.login-popup-condition p {
+    font-size: 12px;
+    color: #555;
+}
+
+.login-popup p {
+    text-align: start;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.login-popup p span {
+    color: tomato;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+}
+.custom-success-toast {
+  background-color: #28a745 !important;  /* Strong success green */
+  color: black !important;                /* Clean white text */
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', sans-serif;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Fix icon color */
+.custom-success-toast .Toastify__toast-icon svg {
+  fill: white !important;
+}
+
+/* Optional: custom progress bar color */
+.Toastify__progress-bar--success {
+  background: #ffffff !important;
+}

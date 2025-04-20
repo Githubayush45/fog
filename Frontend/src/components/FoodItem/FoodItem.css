@@ -1,0 +1,111 @@
+.food-item-img-container {
+    position: relative;
+}
+
+.add {
+    position: absolute; /* Position the icon absolutely */
+    bottom: 10px;
+    right: 10px; /* Adjust the left position */
+    width: 24px; /* Set the width of the icon */
+    height: 24px; /* Set the height of the icon */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    display: block; /* Ensure the icon is displayed as a block element */
+}
+.food-item-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    gap: 5px; /* Adds spacing between buttons */
+}
+
+.food-item-container img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.food-item-container img:hover {
+    transform: scale(1.1);
+}
+
+.food-item-container p {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    min-width: 20px;
+    text-align: center;
+}
+.food-item {
+    position: relative;
+    width: 250px; /* Adjust width as needed */
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .food-item-img-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .food-item-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .add {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .add:hover {
+    transform: scale(1.1);
+  }
+  
+  .food-item-counter {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .food-item-counter img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .food-item-counter img:hover {
+    transform: scale(1.1);
+  }
+  
+  .food-item-counter p {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+  

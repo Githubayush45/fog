@@ -1,0 +1,47 @@
+.explore-menu {
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background for contrast */
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Hide overflow to create scrolling effect */
+}
+
+.explore-menu-list {
+    display: flex; /* Use flexbox for horizontal layout */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent items from wrapping */
+    padding: 10px 0; /* Padding for the scrolling area */
+}
+
+.explore-menu-list-item {
+    display: inline-block; /* Ensure items are inline */
+    margin: 0 10px; /* Space between items */
+    text-align: center; /* Center text in items */
+}
+
+.explore-menu-list-item img {
+    width: 100px; /* Fixed width for images */
+    height: 100px; /* Fixed height for images */
+    object-fit: cover; /* Maintain aspect ratio */
+    border-radius: 0; /* No rounded corners */
+}
+
+.explore-menu-list-item p {
+    font-size: 1rem; /* Font size for item names */
+    color: #333; /* Dark color for item names */
+    margin-top: 5px; /* Space above item names */
+}
+
+.explore-menu hr {
+    margin: 10px 10px;
+    height: 2px;
+    background-color: white;
+    border: none;
+}
+
+.explore-menu-list-item.active {
+    border: 2px solid tomato; /* Blue border for selected item */
+    border-radius: 50%; /* Round border */
+    padding: 10px; /* Add padding to create space for the border */
+    box-shadow: 0 0 10px tomato; /* Optional shadow for emphasis */
+    transition: all 0.3s ease; /* Smooth transition effect */
+}
