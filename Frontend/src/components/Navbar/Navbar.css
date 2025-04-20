@@ -47,11 +47,11 @@
     height: 30px;
   }
   
-  /* Hover effect for profile */
+  /* Hover effect for profile
   .navbar-profile:hover .navbar-profile-dropdown {
     display: flex;
     animation: fadeIn 0.3s ease;
-  }
+  } */
   
   .navbar-profile-dropdown {
     position: absolute;
@@ -160,5 +160,9 @@
     .navbar-menu {
       display: none;
     }
+  }
+  .navbar-profile-dropdown.show {
+    display: flex !important;
+    animation: fadeIn 0.3s ease;
   }
   

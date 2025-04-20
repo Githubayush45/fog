@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import profile_icon from '../../assets/profile_icon.png';
 import bag_icon from '../../assets/bag_icon.png';
 import logout_icon from '../../assets/logout_icon.png';
@@ -14,6 +14,7 @@ const Navbar = ({ setShowLogin }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
+  const navigate = useNavigate();
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -46,15 +47,31 @@ const Navbar = ({ setShowLogin }) => {
     };
   }, []);
 
+  const handleLogoClick = () => {
+    navigate('/');
+  };
+
   return (
     <div className="navbar">
-      <img src={logo} alt="logo" className="logo" />
-      <ul className="navbar-menu">
-        <Link to="/" onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>home</Link>
-        <a href="#explore-menu" onClick={() => setMenu("menu")} className={menu === "menu" ? "active" : ""}>menu</a>
-        <a href="#app-download" onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}>mobile-app</a>
-        <a href="#footer" onClick={() => setMenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>contact-us</a>
-      </ul>
+      <img src={logo} alt="logo" className="logo" onClick={handleLogoClick} style={{cursor: 'pointer'}} />
+        <ul className="navbar-menu">
+          <Link to="/" onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>home</Link>
+          <button
+            onClick={() => {
+              setMenu("menu");
+              const element = document.getElementById("explore-menu");
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className={menu === "menu" ? "active" : ""}
+            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, font: "inherit", color: "inherit" }}
+          >
+            menu
+          </button>
+          <a href="#app-download" onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}>mobile-app</a>
+          <a href="#footer" onClick={() => setMenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>contact-us</a>
+        </ul>
 
       <div className="navbar-right">
         <img src={search_icon} alt="search" />

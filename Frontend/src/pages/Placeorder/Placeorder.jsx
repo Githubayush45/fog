@@ -2,9 +2,11 @@ import React, { useContext, useState } from "react";
 import "./Placeorder.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
   const { getTotalCartAmount, token, food_list, cartItems, url } = useContext(StoreContext);
+  const navigate = useNavigate();
 
   const [data, setData] = useState({
     firstName: "",
@@ -26,6 +28,13 @@ const PlaceOrder = () => {
 
   const placeOrder = async (event) => {
     event.preventDefault();
+
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      alert("User not logged in or user ID missing. Please login again.");
+      return;
+    }
+
     let orderItems = [];
     food_list.map((item) => {
       if (cartItems[item._id] > 0) {
@@ -35,27 +44,30 @@ const PlaceOrder = () => {
     });
 
     let orderData = {
-      userId: localStorage.getItem("userId"), // or however you're storing userId
+      userId: userId,
       address: data,
       items: orderItems,
       amount: getTotalCartAmount() + 2,
+      email: data.email,
+      phone: data.phone,
     };
-    
 
     try {
       const response = await axios.post("http://localhost:4000/api/order/place", orderData, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`  // ✅ FIXED
+          Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       });
-      
 
       console.log("Order Response", response.data);
 
-      if (response.data.success) {
-        const { payment_link } = response.data;
-        window.location.replace(payment_link);
+      if (response.data.success && response.data.payment_link) {
+        // Redirect to payment link
+        window.location.replace(response.data.payment_link);
+      } else if (response.data.success && response.data.message) {
+        // Redirect to order confirmation page
+        navigate("/order-confirmed");
       } else {
         alert(response.data.message || "Error creating payment link.");
       }
