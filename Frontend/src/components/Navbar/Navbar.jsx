@@ -56,20 +56,20 @@ const Navbar = ({ setShowLogin }) => {
       <img src={logo} alt="logo" className="logo" onClick={handleLogoClick} style={{cursor: 'pointer'}} />
         <ul className="navbar-menu">
           <Link to="/" onClick={() => setMenu("home")} className={menu === "home" ? "active" : ""}>home</Link>
-          <button
-            onClick={() => {
-              setMenu("menu");
-              const element = document.getElementById("explore-menu");
-              if (element) {
-                element.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
+          <Link
+            to="#explore-menu"
             className={menu === "menu" ? "active" : ""}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, font: "inherit", color: "inherit" }}
+            onClick={() => setMenu("menu")}
           >
             menu
-          </button>
-          <a href="#app-download" onClick={() => setMenu("mobile-app")} className={menu === "mobile-app" ? "active" : ""}>mobile-app</a>
+          </Link>
+          <Link
+            to="#app-download"
+            className={menu === "mobile-app" ? "active" : ""}
+            onClick={() => setMenu("mobile-app")}
+          >
+            mobile-app
+          </Link>
           <a href="#footer" onClick={() => setMenu("contact-us")} className={menu === "contact-us" ? "active" : ""}>contact-us</a>
         </ul>
 
@@ -97,7 +97,11 @@ const Navbar = ({ setShowLogin }) => {
                 <ul>
                   <li>
                     <img src={bag_icon} alt="orders" />
-                    <p>Orders</p>
+                    <p>
+                      <a href="/myorders" style={{ color: 'inherit', textDecoration: 'none' }}>
+                        Orders
+                      </a>
+                    </p>
                   </li>
                   <hr />
                   <li onClick={logout}>

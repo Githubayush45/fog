@@ -8,22 +8,46 @@ const placeOrder = async (req, res) => {
             items: req.body.items,
             amount: req.body.amount,
             address: req.body.address,
+            status: "processing", // default status
         });
+
         await newOrder.save();
         await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
 
-        // Since payment integration is not done, directly confirm order
         res.json({ 
             success: true, 
             message: 'Order confirmed. Payment integration is not done yet.' 
         });
+
     } catch (error) {
         console.error(error);
-        res.json({ success: false, message: 'Error creating order' });
+
+        // Save as "pending" if something goes wrong during order placement
+        try {
+            const pendingOrder = new orderModel({
+                userId: req.body.userId,
+                items: req.body.items,
+                amount: req.body.amount,
+                address: req.body.address,
+                status: "pending",
+            });
+            await pendingOrder.save();
+
+            res.json({ 
+                success: true, 
+                message: 'Order saved as pending due to an issue during placement.' 
+            });
+        } catch (fallbackError) {
+            console.error('Fallback error while saving pending order:', fallbackError);
+            res.json({ 
+                success: false, 
+                message: 'Order failed and could not be saved as pending either.' 
+            });
+        }
     }
 };
 
-// ✅ Fixed: Missing closing brace
+
 const getOrdersWithUserInfo = async (req, res) => {
     try {
         const orders = await orderModel.find()
@@ -41,7 +65,6 @@ const getOrdersWithUserInfo = async (req, res) => {
     }
 };
 
-// ✅ New function to update order status
 const updateOrderStatus = async (req, res) => {
     try {
         const orderId = req.params.id;
@@ -60,6 +83,27 @@ const updateOrderStatus = async (req, res) => {
         });
     }
 };
+const getUserOrders = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const { status } = req.query;
 
-// ✅ Final export with all three functions
-export { placeOrder, getOrdersWithUserInfo, updateOrderStatus };
+        let filter = { userId };
+        if (status && ['pending', 'processing', 'delivered', 'cancelled'].includes(status.toLowerCase())) {
+            filter.status = new RegExp(`^${status}$`, 'i');  // <--- FIXED
+        }
+
+        const orders = await orderModel.find(filter).sort({ date: -1 });
+
+        res.json({ success: true, orders });
+    } catch (error) {
+        console.error('Error in getUserOrders:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching user orders',
+            error: error.message
+        });
+    }
+};
+
+export { placeOrder, getOrdersWithUserInfo, updateOrderStatus, getUserOrders };
