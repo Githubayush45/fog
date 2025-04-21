@@ -1,4 +1,4 @@
-in panel admimport orderModel from "../models/orderModel.js";
+import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 
 const placeOrder = async (req, res) => {
@@ -23,20 +23,25 @@ const placeOrder = async (req, res) => {
     }
 };
 
-// New function to get all orders with user info
+// ✅ Fixed: Missing closing brace
 const getOrdersWithUserInfo = async (req, res) => {
     try {
-        // Fetch orders and populate user info
-        const orders = await orderModel.find().sort({ date: -1 }).populate('userId', 'name email');
+        const orders = await orderModel.find()
+            .sort({ date: -1 })
+            .populate('userId', 'name email');
+
         res.json({ success: true, orders });
     } catch (error) {
         console.error('Error in getOrdersWithUserInfo:', error);
-        res.status(500).json({ success: false, message: 'Error fetching orders', error: error.message });
-
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error fetching orders', 
+            error: error.message 
+        });
     }
+};
 
-
-// New function to update order status
+// ✅ New function to update order status
 const updateOrderStatus = async (req, res) => {
     try {
         const orderId = req.params.id;
@@ -48,9 +53,13 @@ const updateOrderStatus = async (req, res) => {
         res.json({ success: true, message: 'Order status updated', order: updatedOrder });
     } catch (error) {
         console.error('Error in updateOrderStatus:', error);
-        res.status(500).json({ success: false, message: 'Error updating order status', error: error.message });
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error updating order status', 
+            error: error.message 
+        });
     }
 };
 
+// ✅ Final export with all three functions
 export { placeOrder, getOrdersWithUserInfo, updateOrderStatus };
-export { placeOrder, getOrdersWithUserInfo };
