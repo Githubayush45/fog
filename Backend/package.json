@@ -4,8 +4,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "server": "npx nodemon server.js"
-  },
+  "dev": "nodemon server.js",        // for local development
+  "server": "node server.js"         // for production (Render uses this)
+}
   "author": "",
   "license": "ISC",
   "description": "",
