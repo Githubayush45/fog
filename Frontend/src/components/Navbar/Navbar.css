@@ -109,8 +109,19 @@
   
   .navbar-right button {
     padding: 8px 25px;
-    background-color: #49557e;
+    background-color: tomato;
     color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .navbar-right button:hover {
+    padding: 8px 25px;
+    background-color: white;
+    box-shadow: 0 0 15px 4px rgba(255, 165, 0, 0.3);
+    border: 1px solid tomato; 
+    
+    color:tomato;
     border: none;
     border-radius: 5px;
     cursor: pointer;
