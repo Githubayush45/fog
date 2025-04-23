@@ -53,7 +53,7 @@ const PlaceOrder = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:4000/api/order/place", orderData, {
+      const response = await axios.post(`${url}/api/order/place`, orderData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`
