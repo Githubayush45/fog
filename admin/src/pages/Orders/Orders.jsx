@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSign } from 'react-icons/fi';
+import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSign  } from 'react-icons/fi';
 import './Orders.css';
+
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
