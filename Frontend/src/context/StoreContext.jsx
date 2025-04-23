@@ -11,7 +11,7 @@ export const StoreContextProvider = (props) => {
     const [loading, setLoading] = useState(false);
      const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
-    const url = "http://localhost:4000";
+    const url = "https://e-com-food-back.onrender.com";
 
     const addToCart = async(itemId) => {
         setCartItems((prev) => ({
