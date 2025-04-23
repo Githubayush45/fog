@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-
 import { StoreContext } from '../../context/StoreContext';
 import axios from 'axios';
 import './MyOrders.css';
+import { FiPackage, FiChevronRight, FiX, FiCheck } from 'react-icons/fi';
 
 const MyOrders = () => {
   const { token, url } = useContext(StoreContext);
@@ -10,6 +10,7 @@ const MyOrders = () => {
   const [filter, setFilter] = useState('all');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [cancellingOrderId, setCancellingOrderId] = useState(null);
 
   const statusMap = {
     all: null,
@@ -50,111 +51,147 @@ const MyOrders = () => {
     }
   }, [token, filter]);
 
-  const handleFilterChange = (status) => {
-    setFilter(status);
+  const handleCancelOrder = async (orderId) => {
+    try {
+      setCancellingOrderId(orderId);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await axios.patch(
+        `${url}/api/order/order/${orderId}/status`,
+        { status: 'cancelled' },
+        config
+      );
+      if (response.data.success) {
+        setOrders(prevOrders =>
+          prevOrders.map(order =>
+            order._id === orderId ? { ...order, status: 'cancelled' } : order
+          )
+        );
+      }
+    } catch (error) {
+      alert('Failed to cancel order');
+    } finally {
+      setCancellingOrderId(null);
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'pending':
+        return { bg: '#FFF4E5', text: '#FFA700' };
+      case 'processing':
+        return { bg: '#E5F1FF', text: '#0066CC' };
+      case 'delivered':
+        return { bg: '#E6F7EE', text: '#00A651' };
+      case 'cancelled':
+        return { bg: '#FFEBEE', text: '#D32F2F' };
+      default:
+        return { bg: '#F5F5F5', text: '#616161' };
+    }
   };
 
   return (
-    <>
-      <div className="myorders-container">
+    <div className="my-orders-container">
+      <div className="orders-header">
         <h1>My Orders</h1>
-        <div className="filters">
-          <button
-            className={filter === 'all' ? 'active' : ''}
-            onClick={() => handleFilterChange('all')}
-          >
-            All
-          </button>
-          <button
-            className={filter === 'pending' ? 'active' : ''}
-            onClick={() => handleFilterChange('pending')}
-          >
-            Pending
-          </button>
-          <button
-            className={filter === 'processing' ? 'active' : ''}
-            onClick={() => handleFilterChange('processing')}
-          >
-            Processing
-          </button>
-          <button
-            className={filter === 'delivered' ? 'active' : ''}
-            onClick={() => handleFilterChange('delivered')}
-          >
-            Delivered
-          </button>
-          <button
-            className={filter === 'cancelled' ? 'active' : ''}
-            onClick={() => handleFilterChange('cancelled')}
-          >
-            Cancelled
-          </button>
-        </div>
-        {loading && <p>Loading orders...</p>}
-        {error && <p className="error">{error}</p>}
-        {!loading && !error && orders.length === 0 && <p>No orders found.</p>}
-        <div className="orders-list">
-          {orders.map((order) => (
-            <div key={order._id} className="order-card">
-              <p><strong>Order ID:</strong> {order._id}</p>
-              <p><strong>Status:</strong> {order.status}</p>
-              <p><strong>Amount:</strong> ${order.amount.toFixed(2)}</p>
-              <p><strong>Items:</strong></p>
-              <ul>
-                {order.items.map((item, index) => (
-                  <li key={index}>
-                    {item.name} x {item.quantity}
-                  </li>
-                ))}
-              </ul>
-              <p><strong>Address:</strong></p>
-              <p>
-                {order.address.firstName} {order.address.lastName}<br />
-                {order.address.email}<br />
-                {order.address.street}<br />
-                {order.address.city}, {order.address.state} {order.address.zipcode}<br />
-                {order.address.country}<br />
-                Phone: {order.address.phone}
-              </p>
-              <p><strong>Date:</strong> {new Date(order.date).toLocaleString()}</p>
-              {order.status === 'processing' && (
-                <button
-                  className="cancel-button"
-                  onClick={async () => {
-                    try {
-                      const config = {
-                        headers: {
-                          Authorization: `Bearer ${token}`,
-                        },
-                      };
-                      const response = await axios.patch(
-                        `${url}/api/order/order/${order._id}/status`,
-                        { status: 'cancelled' },
-                        config
-                      );
-                      if (response.data.success) {
-                        // Update order status locally
-                        setOrders((prevOrders) =>
-                          prevOrders.map((o) =>
-                            o._id === order._id ? { ...o, status: 'cancelled' } : o
-                          )
-                        );
-                      } else {
-                        alert('Failed to cancel order');
-                      }
-                    } catch (error) {
-                      alert('Error cancelling order');
-                    }
-                  }}
-                >
-                  Cancel
-                </button>
-              )}
-            </div>
+        <div className="order-filters">
+          {['all', 'pending', 'processing', 'delivered', 'cancelled'].map((status) => (
+            <button
+              key={status}
+              className={`filter-btn ${filter === status ? 'active' : ''}`}
+              onClick={() => setFilter(status)}
+            >
+              {status.charAt(0).toUpperCase() + status.slice(1)}
+            </button>
           ))}
         </div>
       </div>
-    </>
+
+      {loading && (
+        <div className="loading-state">
+          <div className="spinner"></div>
+          <p>Loading your orders...</p>
+        </div>
+      )}
+
+      {error && (
+        <div className="error-state">
+          <p>{error}</p>
+          <button onClick={() => fetchOrders(filter)}>Try Again</button>
+        </div>
+      )}
+
+      {!loading && !error && orders.length === 0 && (
+        <div className="empty-state">
+          <FiPackage size={48} />
+          <p>No orders found</p>
+          <p>You haven't placed any orders yet</p>
+        </div>
+      )}
+
+      <div className="orders-list">
+        {orders.map((order) => {
+          const statusColor = getStatusColor(order.status);
+          return (
+            <div key={order._id} className="order-card">
+              <div className="order-header">
+                <div className="order-meta">
+                  <div className="order-id">Order #{order._id.substring(order._id.length - 6)}</div>
+                  <div className="order-date">Placed on {new Date(order.date).toLocaleDateString()}</div>
+                </div>
+                <div
+                  className="order-status"
+                  style={{
+                    backgroundColor: statusColor.bg,
+                    color: statusColor.text,
+                  }}
+                >
+                  {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                </div>
+              </div>
+
+              <div className="order-summary">
+                <div className="order-items-preview">
+                  {order.items.slice(0, 3).map((item, index) => (
+                    <div key={index} className="item-preview">
+                      <div className="item-image-placeholder">
+                        <FiPackage />
+                      </div>
+                      <div className="item-details">
+                        <div className="item-name">{item.name}</div>
+                        <div className="item-quantity">Qty: {item.quantity}</div>
+                      </div>
+                    </div>
+                  ))}
+                  {order.items.length > 3 && (
+                    <div className="more-items">+{order.items.length - 3} more items</div>
+                  )}
+                </div>
+
+                <div className="order-actions">
+                  <div className="order-total">Total: ${order.amount.toFixed(2)}</div>
+                  <div className="action-buttons">
+                    {order.status === 'processing' && (
+                      <button
+                        className="cancel-btn"
+                        onClick={() => handleCancelOrder(order._id)}
+                        disabled={cancellingOrderId === order._id}
+                      >
+                        {cancellingOrderId === order._id ? 'Cancelling...' : 'Cancel Order'}
+                      </button>
+                    )}
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
