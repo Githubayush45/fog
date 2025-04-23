@@ -12,8 +12,21 @@ const port=process.env.PORT || 4000;
 
 //middleware
 app.use(express.json())
+const allowedOrigins = [
+  "https://e-com-fooddel.onrender.com",
+  "https://e-com-food-admin.onrender.com"
+];
+
 app.use(cors({
-  origin: "https://e-com-fooddel.onrender.com",
+  origin: function(origin, callback){
+    // allow requests with no origin 
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   credentials: true
 }));
 
