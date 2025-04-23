@@ -66,15 +66,16 @@ const Navbar = ({ setShowLogin }) => {
          <a
   href="#app-download"
   className={menu === "mobile-app" ? "active" : ""}
- onClick={(e) => {
-  e.preventDefault();
-  setMenu("mobile-app");
-  const element = document.getElementById('app-download');
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-  }
-}}
-
+  onClick={(e) => {
+    e.preventDefault();
+    setMenu("mobile-app");
+    setTimeout(() => {
+      const element = document.getElementById('app-download');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100); // 👈 delays just enough for DOM layout/render
+  }}
   style={{ cursor: 'pointer' }}
 >
   mobile-app
