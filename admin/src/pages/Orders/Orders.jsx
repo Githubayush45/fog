@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSign  } from 'react-icons/fi';
 import './Orders.css';
-
+import { BACKEND_URL } from '../config';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -15,7 +15,7 @@ const AdminOrders = () => {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:4000/api/order/orders', {
+      const response = await axios.get(`${BACKEND_URL}/api/order/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +40,7 @@ const AdminOrders = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.patch(
-        `http://localhost:4000/api/order/order/${orderId}/status`,
+        `${BACKEND_URL}/api/order/order/${orderId}/status`,
         { status },
         {
           headers: {
