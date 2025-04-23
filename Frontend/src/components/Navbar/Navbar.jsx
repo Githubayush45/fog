@@ -66,14 +66,15 @@ const Navbar = ({ setShowLogin }) => {
          <a
   href="#app-download"
   className={menu === "mobile-app" ? "active" : ""}
-  onClick={(e) => {
-    e.preventDefault();
-    setMenu("mobile-app");
-    const element = document.getElementById('app-download');
-    if (element) {
-      window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
-    }
-  }}
+ onClick={(e) => {
+  e.preventDefault();
+  setMenu("mobile-app");
+  const element = document.getElementById('app-download');
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+}}
+
   style={{ cursor: 'pointer' }}
 >
   mobile-app
