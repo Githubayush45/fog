@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSign  } from 'react-icons/fi';
+import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSign } from 'react-icons/fi';
 import './Orders.css';
-import { BACKEND_URL } from '../../config';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
+
+  // Define the BACKEND_URL here
+  const BACKEND_URL = 'https://e-com-food-back.onrender.com';
 
   const fetchOrders = async () => {
     try {
