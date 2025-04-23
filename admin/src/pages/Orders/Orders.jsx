@@ -4,7 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSign  } from 'react-icons/fi';
 import './Orders.css';
-import { BACKEND_URL } from '../config';
+import { BACKEND_URL } from '../../config';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
