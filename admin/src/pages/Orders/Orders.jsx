@@ -14,7 +14,7 @@ const AdminOrders = ({url}) => {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${url}/api/order/orders`, {
+      const response = await axios.get(`${url}/api/orders/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -40,7 +40,7 @@ const AdminOrders = ({url}) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.patch(
-        `${BACKEND_URL}/api/order/order/${orderId}/status`,
+        `${url}/api/orders/order/${orderId}/status`,
         { status },
         {
           headers: {
