@@ -25,7 +25,14 @@ const AdminOrders = ({url}) => {
         setError(response.data.message || 'Failed to fetch orders');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Error fetching orders');
+      console.error("Fetch orders error:", err);
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else if (err.message) {
+        setError(err.message);
+      } else {
+        setError('Error fetching orders');
+      }
     } finally {
       setLoading(false);
     }
