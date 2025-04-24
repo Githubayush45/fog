@@ -39,7 +39,7 @@ app.use("/api/food",foodRouter)
 app.use("/images",express.static("uploads"))
 app.use("/api/user",userRouter)
 app.use("/api/cart", cartRouter);
-app.use("/api/orders", orderRouter);
+app.use("/api/order", orderRouter);
 
 // db connection
 connectDB();

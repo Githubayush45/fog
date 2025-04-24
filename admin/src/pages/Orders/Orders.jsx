@@ -40,7 +40,7 @@ const AdminOrders = ({url}) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.patch(
-        `${url}/api/orders/order/${orderId}/status`,
+        `${url}/api/order/orders/${orderId}/status`,
         { status },
         {
           headers: {
@@ -94,7 +94,7 @@ const AdminOrders = ({url}) => {
 
   if (error) {
     return (
-      <div className="admin-orders-error">
+      <div className="admin-orders-error">.
         <p>{error}</p>
         <button onClick={fetchOrders}>Try Again</button>
       </div>
