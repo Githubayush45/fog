@@ -10,7 +10,7 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  const url="https://e-com-food-back.onrender.com"
+  const url="https://e-com-foodbackend.onrender.com"
   return (
     <div>
       <ToastContainer/>

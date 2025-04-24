@@ -5,19 +5,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSign } from 'react-icons/fi';
 import './Orders.css';
 
-const AdminOrders = () => {
+const AdminOrders = ({url}) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
 
-  // Define the BACKEND_URL here
-  const BACKEND_URL = 'https://e-com-food-back.onrender.com';
-
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${BACKEND_URL}/api/order/orders`, {
+      const response = await axios.get(`${url}/api/order/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,6 +30,7 @@ const AdminOrders = () => {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     fetchOrders();
