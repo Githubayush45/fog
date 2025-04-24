@@ -14,12 +14,12 @@ const port=process.env.PORT || 4000;
 app.use(express.json())
 const allowedOrigins = [
   "https://e-com-fooddel.onrender.com",
-  "https://e-com-foodfrontend.onrender.com/"
+  "https://e-com-foodfrontend.onrender.com"
 ];
 
 app.use(cors({
   origin: function(origin, callback){
-    // allow requests with no origin 
+    // allow requests with no origin (e.g., mobile apps, Postman)
     if(!origin) return callback(null, true);
     if(allowedOrigins.indexOf(origin) === -1){
       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
