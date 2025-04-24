@@ -14,14 +14,19 @@ const port=process.env.PORT || 4000;
 app.use(express.json())
 const allowedOrigins = [
   "https://e-com-fooddel.onrender.com",
-  "https://e-com-foodfrontend.onrender.com"
+  "https://e-com-foodfrontend.onrender.com",
+  "http://localhost:5174"
 ];
 
 app.use(cors({
   origin: function(origin, callback){
+    console.log("CORS Origin:", origin);
     // Allow requests with no origin (e.g., mobile apps, Postman)
     if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){
+    // Normalize origin by removing trailing slash
+    const normalizedOrigin = origin.endsWith('/') ? origin.slice(0, -1) : origin;
+    const normalizedAllowed = allowedOrigins.map(o => o.endsWith('/') ? o.slice(0, -1) : o);
+    if(normalizedAllowed.indexOf(normalizedOrigin) === -1){
       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
       return callback(new Error(msg), false);
     }
@@ -39,7 +44,7 @@ app.use("/api/food",foodRouter)
 app.use("/images",express.static("uploads"))
 app.use("/api/user",userRouter)
 app.use("/api/cart", cartRouter);
-app.use("/api/order", orderRouter);
+app.use("/api/orders", orderRouter);
 
 // db connection
 connectDB();
