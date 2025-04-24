@@ -14,7 +14,7 @@ const port=process.env.PORT || 4000;
 app.use(express.json())
 const allowedOrigins = [
   "https://e-com-fooddel.onrender.com",
-  "https://e-com-food-admin.onrender.com"
+  "https://e-com-foodfrontend.onrender.com/"
 ];
 
 app.use(cors({
