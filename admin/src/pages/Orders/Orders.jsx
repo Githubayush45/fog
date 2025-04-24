@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSign } from 'react-icons/fi';
 import './Orders.css';
 
-const AdminOrders = ({url}) => {
+const Orders = ({url}) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -238,4 +238,4 @@ const AdminOrders = ({url}) => {
   );
 };
 
-export default AdminOrders;
+export default Orders;
