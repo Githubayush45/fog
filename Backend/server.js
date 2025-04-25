@@ -16,6 +16,7 @@ const allowedOrigins = [
   "https://e-com-fooddel.onrender.com",
   "https://e-com-foodfrontend.onrender.com",
   "http://localhost:5174"
+  "https://fog-liard.vercel.app" 
 ];
 
 app.use(cors({
