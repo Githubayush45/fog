@@ -7,12 +7,13 @@ export const StoreContext = createContext(null);
 export const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
     // Hardcoded token for single admin user
-    const hardcodedToken = "your_hardcoded_token_here";
+    const hardcodedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDkyOTYwNmYzMzViOWE5N2Y4NzU4NSIsImlhdCI6MTc0NTU3ODg2NSwiZXhwIjoxNzQ2MTgzNjY1fQ.HoVPirhWmOQsJeC9tC_C_1HDrD8N3Yk8xh7aNWwZGMY";
 
     const [token, setToken] = useState(hardcodedToken);
     const [food_list, setFoodList] = useState([]);
     const [loading, setLoading] = useState(false);
      const [isLoggedIn, setIsLoggedIn] = useState(true);
+
 
 
     const url = "https://food-del-backend-2w6e.onrender.com";
