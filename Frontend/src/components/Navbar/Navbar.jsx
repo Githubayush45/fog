@@ -108,11 +108,14 @@ const Navbar = ({ setShowLogin }) => {
                 <ul>
                   <li>
                     <img src={bag_icon} alt="orders" />
-                  <p>
-                    <Link to="/myorders" style={{ color: 'inherit', textDecoration: 'none' }}>
-                      Orders
-                    </Link>
-                  </p>
+                  <Link
+                    to="/myorders"
+                    style={{ color: 'inherit', textDecoration: 'none' }}
+                    onClick={() => setShowDropdown(false)}
+                  >
+                    Orders
+                  </Link>
+
 
                   </li>
                   <hr />
