@@ -58,7 +58,8 @@ const Cart = () => {
               <b>${getTotalCartAmount()===0?0:getTotalCartAmount()+2}</b>
             </div>
               </div>
-          <button onClick={()=>navigate('/order')}>Checkout</button>
+          <button onClick={()=>navigate('/myorders')}>Checkout</button>
+
         </div>
         <div className="cart-promocode">
           <div>
