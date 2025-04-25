@@ -6,10 +6,14 @@ export const StoreContext = createContext(null);
 
 export const StoreContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({});
-    const [token, setToken] = useState(localStorage.getItem("token") || "");
+    // Hardcoded token for single admin user
+    const hardcodedToken = "your_hardcoded_token_here";
+
+    const [token, setToken] = useState(hardcodedToken);
     const [food_list, setFoodList] = useState([]);
     const [loading, setLoading] = useState(false);
-     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+     const [isLoggedIn, setIsLoggedIn] = useState(true);
+
 
     const url = "https://food-del-backend-2w6e.onrender.com";
 
@@ -94,19 +98,19 @@ const loadCartData = async (token) => {
     }
 };
 
-useEffect(() => {
-    const loadData = async () => {
-       // Load food items (optional, if needed elsewhere)
+    useEffect(() => {
+        const loadData = async () => {
+           // Load food items (optional, if needed elsewhere)
 
-        const tokenFromStorage = localStorage.getItem("token");
-        if (tokenFromStorage) {
-            setToken(tokenFromStorage);
-            await loadCartData(tokenFromStorage); // Load cart from backend
-        }
-    };
+            // Always use hardcoded token
+            localStorage.setItem("token", hardcodedToken);
+            setToken(hardcodedToken);
+            await loadCartData(hardcodedToken); // Load cart from backend
+        };
 
-    loadData(); // Trigger loading on component mount
-}, []);
+        loadData(); // Trigger loading on component mount
+    }, []);
+
     
     // Set token on login
     const handleSetToken = (newToken) => {
