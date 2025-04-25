@@ -108,11 +108,12 @@ const Navbar = ({ setShowLogin }) => {
                 <ul>
                   <li>
                     <img src={bag_icon} alt="orders" />
-                    <p>
-                      <a href="/myorders" style={{ color: 'inherit', textDecoration: 'none' }}>
-                        Orders
-                      </a>
-                    </p>
+                  <p>
+                    <Link to="/myorders" style={{ color: 'inherit', textDecoration: 'none' }}>
+                      Orders
+                    </Link>
+                  </p>
+
                   </li>
                   <hr />
                   <li onClick={logout}>
