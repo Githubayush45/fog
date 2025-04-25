@@ -26,14 +26,14 @@ const MyOrders = () => {
     try {
       const config = {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: Bearer ${token},
         },
         params: {},
       };
       if (statusFilter && statusMap[statusFilter]) {
         config.params.status = statusMap[statusFilter];
       }
-      const response = await axios.get(`${url}/api/order/user/orders`, config);
+      const response = await axios.get(${url}/api/order/user/orders, config);
       if (response.data.success) {
         setOrders(response.data.orders);
       } else {
@@ -56,11 +56,11 @@ const MyOrders = () => {
       setCancellingOrderId(orderId);
       const config = {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: Bearer ${token},
         },
       };
       const response = await axios.patch(
-        `${url}/api/order/order/${orderId}/status`,
+        ${url}/api/order/order/${orderId}/status,
         { status: 'cancelled' },
         config
       );
@@ -101,7 +101,7 @@ const MyOrders = () => {
           {['all', 'pending', 'processing', 'delivered', 'cancelled'].map((status) => (
             <button
               key={status}
-              className={`filter-btn ${filter === status ? 'active' : ''}`}
+              className={filter-btn ${filter === status ? 'active' : ''}}
               onClick={() => setFilter(status)}
             >
               {status.charAt(0).toUpperCase() + status.slice(1)}
