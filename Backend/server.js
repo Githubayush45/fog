@@ -12,25 +12,11 @@ const port=process.env.PORT || 4000;
 
 //middleware
 app.use(express.json())
-const allowedOrigins = [
-  "https://e-com-fooddel.onrender.com",
-  "https://e-com-foodfrontend.onrender.com",
-  "http://localhost:5174",
-  "https://fog-liard.vercel.app" 
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  origin: '*',
+  credentials: true
 }));
+
 
 
 
