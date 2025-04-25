@@ -5,6 +5,7 @@ import { StoreContext } from '../../context/StoreContext';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPopup = ({ setShowLogin }) => {
   const { url, setToken } = useContext(StoreContext);
@@ -15,6 +16,7 @@ const LoginPopup = ({ setShowLogin }) => {
     password: ""
   });
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -43,6 +45,7 @@ const LoginPopup = ({ setShowLogin }) => {
             className: "custom-success-toast"
           });
           setShowLogin(false);
+          navigate('/myorders');
         } else {
           toast.success("🎉 Account created successfully! Please log in.", {
             className: "custom-success-toast"
