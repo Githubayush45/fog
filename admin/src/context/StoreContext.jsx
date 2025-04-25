@@ -94,9 +94,10 @@ const loadCartData = async (token) => {
             setCartItems(response.data.cartData); // Update cart items
         }
     } catch (error) {
-        console.error("Failed to load cart data:", error);
+        console.error("Failed to load cart data:", error?.response?.data || error.message || error);
     }
 };
+
 
     useEffect(() => {
         const loadData = async () => {
